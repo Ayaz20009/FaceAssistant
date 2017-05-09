@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FaceAssistantGlassApp</string>
+    <string name="title_activity_main">Face Assistant</string>
+    <string name="client_id">850880049972-emo9tr44ajo4c32sbedic5papt355rpk.apps.googleusercontent.com</string>
+</resources>
