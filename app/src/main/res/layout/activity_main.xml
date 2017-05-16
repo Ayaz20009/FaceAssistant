@@ -31,7 +31,14 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 
     <TextView
-        android:id="@+id/relation"
+        android:id="@+id/birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+    <TextView
+        android:id="@+id/lastVisited"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -44,10 +51,4 @@
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 
-    <TextView
-        android:id="@+id/lastVisited"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 </LinearLayout>

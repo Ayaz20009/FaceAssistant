@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
     private TextView mName;
     private TextView mConfidence;
     private ImageView mImageView;
-    private TextView mRelation;
+    private TextView mBirthday;
     private TextView mNotes;
     private TextView mLastVisited;
     private Profile mProfile;
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         spinner.setVisibility(View.INVISIBLE);
         mName = (TextView) findViewById(R.id.name);
         mConfidence = (TextView) findViewById(R.id.confidence);
-        mRelation = (TextView) findViewById(R.id.relation);
+        mBirthday = (TextView) findViewById(R.id.birthday);
         mNotes = (TextView) findViewById(R.id.notes);
         mLastVisited = (TextView) findViewById(R.id.lastVisited);
 
@@ -236,8 +236,8 @@ public class MainActivity extends Activity {
         LovedOnes lovedOnes = new LovedOnes();
         lovedOnes.setName(name);
         lovedOnes.setBirthday(birthday);
-        lovedOnes.setNotes(note);
         lovedOnes.setRelation(relationship);
+        lovedOnes.setNotes(note);
         lovedOnes.setLastSeen(last_viewed);
         return lovedOnes;
     }
@@ -245,16 +245,10 @@ public class MainActivity extends Activity {
 
     private void updateLovedOnes() {
         mName.setText(mLovedones.getName());
-        mConfidence.setText(mLovedones.getBirthday());
-        mRelation.setText(mLovedones.getRelation());
+        mConfidence.setText(mLovedones.getRelation());
+        mBirthday.setText(mLovedones.getBirthday());
         mNotes.setText(mLovedones.getNotes());
         mLastVisited.setText(mLovedones.getLastSeen());
-        Log.i("Name", mLovedones.getName());
-        Log.i("Name", mLovedones.getBirthday());
-        Log.i("Name", mLovedones.getLastSeen());
-        Log.i("Name", mLovedones.getNotes());
-        Log.i("Name", mLovedones.getRelation());
-
     }
 
     private Profile getProfileDetails(String jsonData) throws JSONException {
