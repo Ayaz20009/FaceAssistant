@@ -42,18 +42,16 @@ public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int TAKE_PICTURE_REQUEST = 1;
     private GestureDetector mGestureDetector = null;
-    private CameraView cameraView = null;
+    private CameraView cameraView;
     private String encoded_string, image_path;
-    private Bitmap bitmap,picture;
+    private Bitmap bitmap;
     private ProgressBar spinner;
     private TextView mName;
     private TextView mConfidence;
     private ImageView mImageView;
-    private TextView lovedOneName;
-    private TextView lovedOneBithday;
-    private TextView lovedOneRelation;
-    private TextView lovedOneNotes;
-    private TextView lovedOneLastViewed;
+    private TextView mRelation;
+    private TextView mNotes;
+    private TextView mLastVisited;
     private Profile mProfile;
     private LovedOnes mLovedones;
 
@@ -61,13 +59,18 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cameraView = new CameraView(this);
         mGestureDetector = createGestureDetector(this);
-        this.setContentView(cameraView);
-        spinner = (ProgressBar)findViewById(R.id.progressBar);
+        //this.setContentView(cameraView);
+        setContentView(R.layout.activity_main);
+        cameraView = (CameraView) findViewById(R.id.camerapp);
+        cameraView.setVisibility(View.VISIBLE);
+        spinner = (ProgressBar)findViewById(R.id.progress);
+        spinner.setVisibility(View.INVISIBLE);
         mName = (TextView) findViewById(R.id.name);
-        mConfidence = (TextView) findViewById(R.id.dateofb);
-        //mImageView = (ImageView) findViewById(R.id.image);
+        mConfidence = (TextView) findViewById(R.id.confidence);
+        mRelation = (TextView) findViewById(R.id.relation);
+        mNotes = (TextView) findViewById(R.id.notes);
+        mLastVisited = (TextView) findViewById(R.id.lastVisited);
 
     }
 
@@ -77,8 +80,6 @@ public class MainActivity extends Activity {
         if (cameraView != null) {
             cameraView.releaseCamera();
         }
-        //this.setContentView(cameraView);
-
     }
 
     @Override
@@ -103,9 +104,6 @@ public class MainActivity extends Activity {
                         startActivityForResult(intent, TAKE_PICTURE_REQUEST);
                         return true;
                     }
-//                    if(gesture == Gesture.SWIPE_RIGHT){
-//                        Camera.Parameters parameters = cameraView
-//                    }
                 }
                 return false;
             }
@@ -127,8 +125,8 @@ public class MainActivity extends Activity {
         if (requestCode == TAKE_PICTURE_REQUEST && resultCode == RESULT_OK) {
             image_path = data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
             processPictureWhenReady(image_path);
-            setContentView(R.layout.progressbar);
-            //mImageView.setImageBitmap(bitmap);
+            cameraView.setVisibility(View.GONE);
+            spinner.setVisibility(View.VISIBLE);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -194,8 +192,9 @@ public class MainActivity extends Activity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            setContentView(R.layout.activity_main);
-                                            //updateProfiles();
+                                            spinner.setVisibility(View.GONE);
+                                            updateProfiles();
+
                                         }
                                     });
                                 }
@@ -205,8 +204,7 @@ public class MainActivity extends Activity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            setContentView(R.layout.lovedone);
-                                            //updateLovedOnes();
+                                            updateLovedOnes();
                                         }
                                     });
                                 }
@@ -250,6 +248,7 @@ public class MainActivity extends Activity {
 
 
     private void updateLovedOnes() {
+
         Log.i("Name", mLovedones.getName());
         Log.i("Name", mLovedones.getBirthday());
         Log.i("Name", mLovedones.getLastSeen());
@@ -270,8 +269,11 @@ public class MainActivity extends Activity {
             return nprofile;
     }
     private void updateProfiles() {
+        mName.setText(mProfile.getName());
+        mConfidence.setText(mProfile.getConfidence());
         Log.i("Name", mProfile.getName());
         Log.i("Confidence",mProfile.getConfidence());
+
     }
 
 
