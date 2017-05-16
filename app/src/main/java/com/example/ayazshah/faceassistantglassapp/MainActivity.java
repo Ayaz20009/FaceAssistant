@@ -204,6 +204,7 @@ public class MainActivity extends Activity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            spinner.setVisibility(View.GONE);
                                             updateLovedOnes();
                                         }
                                     });
@@ -228,15 +229,10 @@ public class MainActivity extends Activity {
     private LovedOnes getLovedOnesDetails(String jsonData) throws JSONException {
         JSONObject loved_one = new JSONObject(jsonData);
         String name = loved_one.getString("name");
-        Log.i(TAG,"From JSON:" + name);
         String birthday = loved_one.getString("birthday");
-        Log.i(TAG,"From JSON:" + birthday);
         String relationship = loved_one.getString("relationship");
-        Log.i(TAG,"From JSON:" + relationship);
         String note = loved_one.getString("note");
-        Log.i(TAG,"From JSON:" + note);
         String last_viewed = loved_one.getString("last_viewed");
-        Log.i(TAG,"From JSON:" + last_viewed);
         LovedOnes lovedOnes = new LovedOnes();
         lovedOnes.setName(name);
         lovedOnes.setBirthday(birthday);
@@ -248,7 +244,11 @@ public class MainActivity extends Activity {
 
 
     private void updateLovedOnes() {
-
+        mName.setText(mLovedones.getName());
+        mConfidence.setText(mLovedones.getBirthday());
+        mRelation.setText(mLovedones.getRelation());
+        mNotes.setText(mLovedones.getNotes());
+        mLastVisited.setText(mLovedones.getLastSeen());
         Log.i("Name", mLovedones.getName());
         Log.i("Name", mLovedones.getBirthday());
         Log.i("Name", mLovedones.getLastSeen());
@@ -260,9 +260,7 @@ public class MainActivity extends Activity {
     private Profile getProfileDetails(String jsonData) throws JSONException {
             JSONObject profile = new JSONObject(jsonData);
             String name = profile.getString("name");
-            Log.i(TAG,"From JSON:" + name);
             String confidence = profile.getString("confidence");
-            Log.i(TAG,"From JSON confidence :" + confidence);
             Profile nprofile = new Profile();
             nprofile.setName(name);
             nprofile.setConfidence(confidence);
@@ -271,9 +269,6 @@ public class MainActivity extends Activity {
     private void updateProfiles() {
         mName.setText(mProfile.getName());
         mConfidence.setText(mProfile.getConfidence());
-        Log.i("Name", mProfile.getName());
-        Log.i("Confidence",mProfile.getConfidence());
-
     }
 
 
